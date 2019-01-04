@@ -1,0 +1,55 @@
+id: drupal_migrate_file_image
+migration_tags:
+  - CSV
+migration_group: drupal_migrate_file
+label: Article Images
+source:
+  constants:
+    uri_file: 'public:/'
+    source_base_path: 'module/custom/assets/images'
+  plugin: csv
+  track_changes: true
+  path: module/custom/assets/article.csv
+  header_row_count: 1
+  keys:
+    - filename
+  ids:
+    filename:
+      type: string
+  column_names:
+    5:
+      filename: filename
+
+process:
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/source_base_path
+        - name
+    -
+      plugin: urlencode
+  uri_file:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/uri_file
+        - filename
+    -
+      plugin: urlencode
+  filename: filename
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@uri_file'
+destination:
+  plugin: 'entity:file'
+dependencies:
+  module:
+    - file
+migration_dependencies:
+  required: {  }
+  optional: {  }

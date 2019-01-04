@@ -1,0 +1,7 @@
+name: 'ITSC Migrations'
+type: module
+description: 'Migrations from D7 site'
+core: 8.x
+package: 'Custom'
+dependencies:
+  - drupal:migrate

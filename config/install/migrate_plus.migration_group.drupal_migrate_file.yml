@@ -1,0 +1,7 @@
+id: drupal_migrate_file
+label: File Imports
+description: File imports.
+source_type: CSV
+shared_configuration:
+  source:
+    key: default
